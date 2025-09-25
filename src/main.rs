@@ -1,5 +1,5 @@
 mod screenmanager;
-
+mod ui; 
 use crate::screenmanager::ScreenManager; // імпортуємо структуру
 
 fn main() {

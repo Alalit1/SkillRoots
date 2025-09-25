@@ -1,4 +1,8 @@
-use fltk::{app, button::Button, frame::Frame, group::Group, prelude::*, window::Window};
+use fltk::prelude::*; // містить WidgetBase, який потрібен для new()
+use fltk::{app::App, window::Window, image::PngImage};
+use crate::ui;
+
+
 
 pub struct ScreenManager {
     pub width: u16,
@@ -11,18 +15,19 @@ impl ScreenManager {
     }
 
     pub fn draw(&self) {
-        let app = app::App::default();
-        let mut wind = Window::new(100, 100, self.width.into(), self.height.into(), "Screens example");
+        let app = App::default();
+        let mut wind = Window::new(100, 100, self.width.into(), self.height.into(), "SkillRoots");
 
-        let screen1 = Group::new(0, 0, 400, 300, "");
-        let _frame1 = Frame::new(0, 0, 400, 200, "Це екран 1");
-        let _btn_next = Button::new(150, 220, 100, 40, "Start");
-        screen1.end();
+        // Завантажуемо іконку для вікна
+        let icon = PngImage::load("Icon_SkillRoots.png").unwrap();
 
-        let mut screen2 = Group::new(0, 0, 400, 300, "");
-        let _frame2 = Frame::new(0, 0, 400, 200, "Це екран 2");
-        screen2.end();
-        screen2.hide();
+        // Встановлюємо іконку вікна
+        wind.set_icon(Some(icon));
+        //wind.set_color(Color::Black);
+
+        // Виклик функції з ui.rs
+        ui::manu();
+
 
         wind.end();
         wind.show();
