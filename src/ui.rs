@@ -1,11 +1,35 @@
-use fltk::{app, button::Button, frame::Frame, group::Group, prelude::*, window::Window};
+use fltk::{button::Button, frame::Frame, group::Group, prelude::*, window::Window};
 
-pub fn manu() {
-    let _frame1 = Frame::new(0, 0, 400, 200, "Це екран 1");
-    let _btn_next = Button::new(150, 220, 100, 40, "Start");
-    let _btn_exit = Button::new(100, 150, 100, 40, "Exit");
-}
+pub fn manu(win: &mut Window) {
+    let mut screen1 = Group::new(0, 0, 400, 300, "");
+    Frame::new(0, 0, 400, 200, "Це екран 1");
+    let mut btn_next = Button::new(150, 220, 100, 40, "Start");
+    screen1.end();
 
-pub fn manu_lason() {
-    let _frame2 = Frame::new(0, 0, 400, 200, "Це екран 2");
+    let mut screen2 = Group::new(0, 0, 400, 300, "");
+    Frame::new(0, 0, 400, 200, "Це екран 2");
+    let mut btn_back = Button::new(150, 220, 100, 40, "Back");
+    screen2.end();
+    screen2.hide();
+
+    btn_next.set_callback({
+        let mut screen1 = screen1.clone();
+        let mut screen2 = screen2.clone();
+        move |_| {
+            screen1.hide();
+            screen2.show();
+        }
+    });
+
+    btn_back.set_callback({
+        let mut screen1 = screen1.clone();
+        let mut screen2 = screen2.clone();
+        move |_| {
+            screen2.hide();
+            screen1.show();
+        }
+    });
+
+    win.add(&screen1);
+    win.add(&screen2);
 }
