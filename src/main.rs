@@ -1,6 +1,4 @@
 mod screenmanager;
-mod ui;
-
 use screenmanager::ScreenManager;
 
 fn main() {

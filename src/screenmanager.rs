@@ -34,8 +34,8 @@ impl ScreenManager {
         wind.show();
         app.run().unwrap();
     }
-    pub fn update(corect_screen: &mut Group, new_screen: &mut Group) {
+    /*pub fn update(corect_screen: &mut Group, new_screen: &mut Group) {
         corect_screen.hide();
         new_screen.show();
-    }
+    }*/
 }
