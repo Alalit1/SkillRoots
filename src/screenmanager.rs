@@ -24,18 +24,12 @@ impl ScreenManager {
 
         // Встановлюємо іконку вікна
         wind.set_icon(Some(icon));
-        //wind.set_color(Color::Black);
 
         // Виклик функції з ui.rs
-        
         ui::manu(&mut wind);
 
         wind.end();
         wind.show();
         app.run().unwrap();
     }
-    /*pub fn update(corect_screen: &mut Group, new_screen: &mut Group) {
-        corect_screen.hide();
-        new_screen.show();
-    }*/
 }
