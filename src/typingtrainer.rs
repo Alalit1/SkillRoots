@@ -1,4 +1,3 @@
-use std::io;
 use crossterm::event::{read, Event, KeyCode, KeyEventKind};
 use crossterm::terminal::enable_raw_mode;
 
