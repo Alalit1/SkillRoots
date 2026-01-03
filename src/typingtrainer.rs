@@ -20,7 +20,7 @@ impl TypingTrainer{
 
     //ganarate
     pub fn ganarate(&mut self){
-        pass
+        // TODO: implemen
     }
     //chaked
     pub fn cheked(&mut self,input_char: char){
@@ -44,6 +44,7 @@ impl TypingTrainer{
 
             match event.code {
                 KeyCode::Char(c) => {
+                    self.cheked(c);
                     println!("Символ: '{}'", c);
                 }
                 KeyCode::Enter => println!("ENTER"),

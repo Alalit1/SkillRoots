@@ -1,6 +1,8 @@
+mod screenmanager;
 use screenmanager::ScreenManager;
+
 //mod mathworks;
-//mod ui;
+mod ui;
 mod typingtrainer;
 
 fn main() {
@@ -11,7 +13,6 @@ fn main() {
     let mut test = typingtrainer::TypingTrainer::new(true, 3, true);
     //test::ganerate_tasks();
     test.klicked();
-    test.cheked('y');
 }
 
 
