@@ -2,8 +2,10 @@ mod screenmanager;
 use screenmanager::ScreenManager;
 
 //mod mathworks;
-mod ui;
+mod graphics;
 mod typingtrainer;
+mod vidgets;
+mod ui;
 
 fn main() {
     

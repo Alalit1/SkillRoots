@@ -1,29 +1,26 @@
-use fltk::{button::Button, frame::Frame, group::Group, prelude::*, window::Window};
+use fltk::{button::Button, prelude::*};
 use fltk::enums::Color;
 
-
-
-struct Button{
-    pub position_x: u16,
-    pub position_y: u16,
-    pub height: u16,
-    pub width: u16,
-    pub text: str,
+pub struct ButtonConfig<'a> {
+    pub x: i32,
+    pub y: i32,
+    pub w: i32,
+    pub h: i32,
+    pub label: &'a str,
 }
-impl Button{
-    pub fn new(position_x: u16, position_y: u16,width: u16, height: u16, text: str) -> Self {
-        Self { 
-            position_x,
-            position_y,
-            width, 
-            height,
-            text, 
-        }
-    }
-    pub fn output(&self){
-        self.button = Button::new(self.position_x, self.position_y, self.width, self.height, self.text);
-    }
-    pub fn callback(&self,command){
-        self.button.set_callback(command);
-    }
+
+pub fn create_button<F>(
+    cfg: ButtonConfig,
+    mut callback: F,
+) -> Button
+where
+    F: FnMut() + 'static,
+{
+    let mut btn = Button::new(cfg.x, cfg.y, cfg.w, cfg.h, cfg.label);
+
+    btn.set_color(Color::from_rgb(50, 150, 200));
+    btn.set_label_color(Color::from_rgb(255, 255, 255));
+    btn.set_callback(move |_| callback());
+
+    btn
 }
