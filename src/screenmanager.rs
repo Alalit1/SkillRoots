@@ -26,7 +26,7 @@ impl ScreenManager {
         wind.set_icon(Some(icon));
 
         // Виклик функції з ui.rs
-        ui::manu(&mut wind);
+        ui::menu(&mut wind);
 
         wind.end();
         wind.show();

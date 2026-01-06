@@ -2,54 +2,150 @@ use fltk::{button::Button, frame::Frame, group::Group, prelude::*, window::Windo
 use fltk::enums::Color;
 use crate::vidgets::{ButtonConfig, create_button};
 
-//use vidgets::{ButtonConfig, create_button};
-pub fn manu(win: &mut Window) {
-    let stely = "black";
-
-    // робимо змінну mut, щоб міняти
-    let mut my_color = Color::Black;
-
-    match stely {
-        "black" => my_color = Color::from_rgb(120, 200, 80),
-        "w"     => my_color = Color::from_rgb(120, 20, 80),
-        _       => my_color = Color::Gray0, // дефолт
-    }
-
-    let buttons = vec![
-    ButtonDef {
-        cfg: ButtonConfig { x: 140, y: 130, w: 120, h: 35, label: "Start" },
-        action: Action::Start,
-    },
-    ButtonDef {
-        cfg: ButtonConfig { x: 140, y: 175, w: 120, h: 35, label: "Settings" },
-        action: Action::Settings,
-    },
-];
-
-
-    let mut screen1 = Group::new(0, 0, 400, 300, "");
-    Frame::new(0, 0, 400, 200, "Це екран 1");
-
-enum Action {
+pub enum Action {
     Start,
     Settings,
     Exit,
 }
 
-struct ButtonDef<'a> {
+pub struct ButtonDef<'a> {
     cfg: ButtonConfig<'a>,
     action: Action,
 }
 
+//use vidgets::{ButtonConfig, create_button};
+pub fn build_main_menu(
+    on_action: impl Fn(Action) + Clone + 'static,
+) -> Group {
+    let mut group = Group::new(0, 0, 400, 300, "");
+    Frame::new(0, 0, 400, 200, "Це головне меню");
+
+    let buttons = vec![
+        ButtonDef {
+            cfg: ButtonConfig { x: 50, y: 50, w: 120, h: 35, label: "Start" },
+            action: Action::Start,
+        },
+        ButtonDef {
+            cfg: ButtonConfig { x: 50, y: 95, w: 120, h: 35, label: "Settings" },
+            action: Action::Settings,
+        },
+    ];
 
     for b in buttons {
-    let action = b.action;
-    create_button(b.cfg, move || {
-        match action {
-            Action::Start => println!("start"),
-            Action::Settings => println!("settings"),
-            Action::Exit => println!("exit"),
-        }
-    });
+        let action = b.action;
+        let cb = on_action.clone();
+
+        create_button(b.cfg, move || cb(action));
+    }
+
+    group.end();
+    group
 }
+pub fn build_settings(
+    on_action: impl Fn(Action) + Clone + 'static,
+) -> Group {
+    let mut group = Group::new(0, 0, 400, 300, "");
+    Frame::new(0, 0, 400, 200, "Це головне меню");
+
+    let buttons = vec![
+        ButtonDef {
+            cfg: ButtonConfig { x: 50, y: 50, w: 120, h: 35, label: "Start" },
+            action: Action::Start,
+        },
+        ButtonDef {
+            cfg: ButtonConfig { x: 50, y: 95, w: 120, h: 35, label: "Settings" },
+            action: Action::Settings,
+        },
+    ];
+
+    for b in buttons {
+        let action = b.action;
+        let cb = on_action.clone();
+
+        create_button(b.cfg, move || cb(action));
+    }
+
+    group.end();
+    group
+}
+pub fn build_mash(
+    on_action: impl Fn(Action) + Clone + 'static,
+) -> Group {
+    let mut group = Group::new(0, 0, 400, 300, "");
+    Frame::new(0, 0, 400, 200, "Це головне меню");
+
+    let buttons = vec![
+        ButtonDef {
+            cfg: ButtonConfig { x: 50, y: 50, w: 120, h: 35, label: "Start" },
+            action: Action::Start,
+        },
+        ButtonDef {
+            cfg: ButtonConfig { x: 50, y: 95, w: 120, h: 35, label: "Settings" },
+            action: Action::Settings,
+        },
+    ];
+
+    for b in buttons {
+        let action = b.action;
+        let cb = on_action.clone();
+
+        create_button(b.cfg, move || cb(action));
+    }
+
+    group.end();
+    group
+}
+pub fn build_tiping(
+    on_action: impl Fn(Action) + Clone + 'static,
+) -> Group {
+    let mut group = Group::new(0, 0, 400, 300, "");
+    Frame::new(0, 0, 400, 200, "Це головне меню");
+
+    let buttons = vec![
+        ButtonDef {
+            cfg: ButtonConfig { x: 50, y: 50, w: 120, h: 35, label: "Start" },
+            action: Action::Start,
+        },
+        ButtonDef {
+            cfg: ButtonConfig { x: 50, y: 95, w: 120, h: 35, label: "Settings" },
+            action: Action::Settings,
+        },
+    ];
+
+    for b in buttons {
+        let action = b.action;
+        let cb = on_action.clone();
+
+        create_button(b.cfg, move || cb(action));
+    }
+
+    group.end();
+    group
+}
+pub fn build_langue(
+    on_action: impl Fn(Action) + Clone + 'static,
+) -> Group {
+    let mut group = Group::new(0, 0, 400, 300, "");
+    Frame::new(0, 0, 400, 200, "Це головне меню");
+
+    let buttons = vec![
+        ButtonDef {
+            cfg: ButtonConfig { x: 50, y: 50, w: 120, h: 35, label: "Start" },
+            action: Action::Start,
+        },
+        ButtonDef {
+            cfg: ButtonConfig { x: 50, y: 95, w: 120, h: 35, label: "Settings" },
+            action: Action::Settings,
+        },
+    ];
+
+    for b in buttons {
+        let action = b.action;
+        let cb = on_action.clone();
+
+        create_button(b.cfg, move || cb(action));
+    }
+
+    group.end();
+    group
 }
