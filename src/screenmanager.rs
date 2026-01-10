@@ -1,6 +1,7 @@
 use fltk::prelude::*; // містить WidgetBase, який потрібен для new()
 use fltk::{app::App, window::Window, image::PngImage};
-use crate::ui;
+use crate::ui::build_main_menu;
+use crate::ui::Action;
 use fltk::group::Group;
 
 
@@ -26,7 +27,24 @@ impl ScreenManager {
         wind.set_icon(Some(icon));
 
         // Виклик функції з ui.rs
-        ui::menu(&mut wind);
+        let menu = build_main_menu(|action| {
+            match action {
+                Action::Start => {
+                    println!("Start game");
+                    // screen_manager.show(Game)
+                }
+                Action::Settings => {
+                    println!("Open settings");
+                    // screen_manager.show(Settings)
+                }
+                Action::Exit => {
+                    std::process::exit(0);
+                }
+            }
+        });
+        wind.add(&menu);
+
+        //ui::build_main_menu(&mut wind);
 
         wind.end();
         wind.show();

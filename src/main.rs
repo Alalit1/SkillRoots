@@ -6,7 +6,7 @@ mod vidgets;
 mod ui;
 
 fn main() {
-    let scr = ScreenManager::new(400, 300);
+    let mut scr = ScreenManager::new(400, 300);
     scr.draw();
 }
 

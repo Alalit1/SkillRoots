@@ -2,11 +2,13 @@ use fltk::{button::Button, frame::Frame, group::Group, prelude::*, window::Windo
 use fltk::enums::Color;
 use crate::vidgets::{ButtonConfig, create_button};
 
+#[derive(Copy, Clone, Debug)]
 pub enum Action {
     Start,
     Settings,
     Exit,
 }
+
 
 pub struct ButtonDef<'a> {
     cfg: ButtonConfig<'a>,
