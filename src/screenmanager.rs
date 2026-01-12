@@ -1,53 +1,95 @@
-use fltk::prelude::*; // містить WidgetBase, який потрібен для new()
-use fltk::{app::App, window::Window, image::PngImage};
-use crate::ui::build_main_menu;
-use crate::ui::Action;
-use fltk::group::Group;
-
-
-
-pub struct ScreenManager {
-    pub width: u16,
-    pub height: u16,
+#[derive(Copy, Clone, Debug)]
+pub enum Action {
+    Start,
+    Settings,
+    Exit,
+    Back,
+    Mash,
+    Typing,
+    Language,
 }
 
-impl ScreenManager {
-    pub fn new(width: u16, height: u16) -> Self {
-        Self { width, height }
+// Структура для керування станом програми
+pub struct AppState {
+    current_window: WindowType,
+    main_window: *mut fltk::window::Window,
+}
+
+#[derive(Clone, Copy, PartialEq)]
+pub enum WindowType {
+    MainMenu,
+    Settings,
+    Mash,
+    Typing,
+    Language,
+}
+
+impl AppState {
+    pub fn new(main_window: *mut fltk::window::Window) -> Self {
+        Self {
+            current_window: WindowType::MainMenu,
+            main_window,
+        }
     }
-
-    pub fn draw(&self) {
-        let app = App::default();
-        let mut wind = Window::new(100, 100, self.width.into(), self.height.into(), "SkillRoots");
-
-        // Завантажуемо іконку для вікна
-        let icon = PngImage::load("Icon_SkillRoots.png").unwrap();
-
-        // Встановлюємо іконку вікна
-        wind.set_icon(Some(icon));
-
-        // Виклик функції з ui.rs
-        let menu = build_main_menu(|action| {
-            match action {
-                Action::Start => {
-                    println!("Start game");
-                    // screen_manager.show(Game)
+    
+    pub fn handle_action(&mut self, action: Action) {
+        match action {
+            Action::Start => {
+                println!("Запуск гри...");
+            },
+            Action::Settings => {
+                self.show_window(WindowType::Settings);
+            },
+            Action::Mash => {
+                self.show_window(WindowType::Mash);
+            },
+            Action::Typing => {
+                self.show_window(WindowType::Typing);
+            },
+            Action::Language => {
+                self.show_window(WindowType::Language);
+            },
+            Action::Back => {
+                self.show_window(WindowType::MainMenu);
+            },
+            Action::Exit => {
+                println!("Вихід з програми");
+                // Закриваємо головне вікно
+                unsafe {
+                    if !self.main_window.is_null() {
+                        (*self.main_window).hide();
+                    }
                 }
-                Action::Settings => {
-                    println!("Open settings");
-                    // screen_manager.show(Settings)
-                }
-                Action::Exit => {
-                    std::process::exit(0);
-                }
+            },
+        }
+    }
+    
+    fn show_window(&mut self, window_type: WindowType) {
+        self.current_window = window_type;
+        self.redraw_current_window();
+    }
+    
+    pub fn redraw_current_window(&mut self) {
+        // 1. Очищаємо старий вміст
+        self.content_group.clear();
+        
+        // 2. Створюємо новий вміст залежно від поточного вікна
+        match self.current_window {
+            WindowType::MainMenu => {
+                self.build_main_menu();
             }
-        });
-        wind.add(&menu);
-
-        //ui::build_main_menu(&mut wind);
-
-        wind.end();
-        wind.show();
-        app.run().unwrap();
+            WindowType::Settings => {
+                self.build_settings();
+            }
+            WindowType::Mash => {
+                self.build_mash();
+            }
+            WindowType::Typing => {
+                self.build_typing();
+            }
+            WindowType::Language => {
+                self.build_language();
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ use crate::vidgets::{ButtonConfig, create_button};
 pub enum Action {
     Start,
     Settings,
+    Back,
     Exit,
 }
 
@@ -15,7 +16,6 @@ pub struct ButtonDef<'a> {
     action: Action,
 }
 
-//use vidgets::{ButtonConfig, create_button};
 pub fn build_main_menu(
     on_action: impl Fn(Action) + Clone + 'static,
 ) -> Group {
